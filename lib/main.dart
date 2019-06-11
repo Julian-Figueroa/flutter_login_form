@@ -4,8 +4,14 @@ import 'package:formvalidation/src/bloc/provider.dart';
 import 'package:formvalidation/src/pages/login_page.dart';
 import 'package:formvalidation/src/pages/home_page.dart';
 import 'package:formvalidation/src/pages/product_page.dart';
+import 'package:formvalidation/src/pages/signIn_page.dart';
+import 'package:formvalidation/src/shared/user_preferences.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  final prefs = new UserPreferences();
+  await prefs.initPrefs();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,9 +20,10 @@ class MyApp extends StatelessWidget {
     return Provider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: 'home',
+        initialRoute: 'login',
         routes: {
           'login': (BuildContext context) => LoginPage(),
+          'signin': (BuildContext context) => SignInPage(),
           'home': (BuildContext context) => HomePage(),
           'product': (BuildContext context) => ProductPage(),
         },

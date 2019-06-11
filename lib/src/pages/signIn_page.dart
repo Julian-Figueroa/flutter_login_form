@@ -3,10 +3,12 @@ import 'package:formvalidation/src/bloc/provider.dart';
 import 'package:formvalidation/src/providers/user_provider.dart';
 import 'package:formvalidation/src/utils/utils.dart';
 
-class LoginPage extends StatelessWidget {
+class SignInPage extends StatelessWidget {
   final userProvider = new UserProvider();
+  
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -127,7 +129,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                  'Sign up',
+                  'Sign in',
                   style: TextStyle(fontSize: 20.0),
                 ),
                 SizedBox(
@@ -146,8 +148,8 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           FlatButton(
-            child: Text('Create a new account'),
-            onPressed: () => Navigator.pushReplacementNamed(context, 'signin'),
+            child: Text('Do you already have an account? Sign up'),
+            onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
           ),
           SizedBox(
             height: 100.0,
@@ -220,7 +222,7 @@ class LoginPage extends StatelessWidget {
               horizontal: 80.0,
               vertical: 15.0,
             ),
-            child: Text('Login'),
+            child: Text('Create'),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
@@ -234,9 +236,9 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _submit(BuildContext context, LoginBloc bloc) async {
-    Map info = await userProvider.login(bloc.email, bloc.password);
-
+  _submit(BuildContext context, LoginBloc bloc) async{
+    Map info = await userProvider.newUser(bloc.email, bloc.password);
+    
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'home');
     } else {

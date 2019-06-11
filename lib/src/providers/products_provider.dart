@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:formvalidation/src/shared/user_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart';
@@ -11,8 +12,10 @@ class ProductsProvider {
   final String _urlBack =
       'https://api.cloudinary.com/v1_1/ianfiguer/image/upload?upload_preset=cygjn7qc';
 
+  final _prefs = new UserPreferences();
+
   Future<bool> createProduct(ProductModel product) async {
-    final url = '$_url/products.json';
+    final url = '$_url/products.json?auth=${_prefs.token}';
 
     final resp = await http.post(url, body: productModelToJson(product));
 
@@ -22,7 +25,7 @@ class ProductsProvider {
   }
 
   Future<bool> updateProduct(ProductModel product) async {
-    final url = '$_url/products/${product.id}.json';
+    final url = '$_url/products/${product.id}.json?auth=${_prefs.token}';
 
     final resp = await http.put(url, body: productModelToJson(product));
 
@@ -32,7 +35,7 @@ class ProductsProvider {
   }
 
   Future<List<ProductModel>> loadProducts() async {
-    final url = '$_url/products.json';
+    final url = '$_url/products.json?auth=${_prefs.token}';
 
     final resp = await http.get(url);
 
@@ -54,7 +57,7 @@ class ProductsProvider {
   }
 
   Future<int> deleteProduct(String id) async {
-    final url = '$_url/products/$id.json';
+    final url = '$_url/products/$id.json?auth=${_prefs.token}';
 
     final resp = await http.delete(url);
 
