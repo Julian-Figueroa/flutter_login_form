@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 // import 'package:http_parser/http_parser.dart';
 
 class UserProvider {
-  final _firebaseAPIKey = 'AIzaSyC5syLynAJs16Auy7K_35xBAQrEMGh-PbI';
+  final _firebaseAPIKey = 'XXX';
   final _prefs = new UserPreferences();
 
   Future<Map<String, dynamic>> login(String email, String password) async {
